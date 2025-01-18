@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "author": "Marcos José Chagas Souza",
+    "editor": "wokwi",
+    "parts": [
+      { "type": "board-pi-pico-w", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+      { "type": "led", "id": "led_green", "top": -50, "left": 50, "attrs": { "color": "green" } },
+      { "type": "led", "id": "led_blue", "top": -50, "left": 100, "attrs": { "color": "blue" } },
+      { "type": "led", "id": "led_red", "top": -50, "left": 150, "attrs": { "color": "red" } },
+      { "type": "buzzer", "id": "buzzer", "top": 100, "left": 50, "attrs": {} },
+      {
+        "type": "wokwi-led",
+        "id": "led1",
+        "top": 162.4,
+        "left": -113.8,
+        "rotate": 270,
+        "attrs": { "color": "red" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led2",
+        "top": 133.6,
+        "left": -113.8,
+        "rotate": 270,
+        "attrs": { "color": "blue" }
+      },
+      {
+        "type": "wokwi-led",
+        "id": "led3",
+        "top": 104.8,
+        "left": -113.8,
+        "rotate": 270,
+        "attrs": { "color": "green" }
+      },
+      {
+        "type": "wokwi-buzzer",
+        "id": "bz1",
+        "top": 204,
+        "left": 11.4,
+        "attrs": { "volume": "0.1" }
+      }
+    ],
+    "connections": [
+      [ "pico:GP11", "led_green:anode", "green", [] ],
+      [ "led_green:cathode", "pico:GND", "black", [] ],
+      [ "pico:GP12", "led_blue:anode", "blue", [] ],
+      [ "led_blue:cathode", "pico:GND", "black", [] ],
+      [ "pico:GP13", "led_red:anode", "red", [] ],
+      [ "led_red:cathode", "pico:GND", "black", [] ],
+      [ "pico:GP14", "buzzer:signal", "yellow", [] ],
+      [ "buzzer:GND", "pico:GND", "black", [] ],
+      [ "pico:GP11", "led3:A", "green", [ "h0" ] ],
+      [ "pico:GP12", "led2:A", "green", [ "h0" ] ],
+      [ "pico:GP13", "led1:A", "green", [ "h-6.05", "v-3.21", "h-134.4" ] ],
+      [ "pico:GND.4", "led1:C", "black", [ "h-73.25", "v35.59" ] ],
+      [ "pico:GND.3", "led2:C", "black", [ "v25.55", "h-178.85" ] ],
+      [ "pico:GND.2", "led3:C", "black", [ "v54.35", "h-82.85" ] ],
+      [ "pico:GP14", "bz1:2", "green", [ "h-25.25", "v121.59", "h67.2" ] ],
+      [ "pico:GND.5", "bz1:1", "black", [ "h13.46", "v25.59", "h-96", "v96", "h48" ] ]
+    ],
+    "dependencies": {}
+  }
