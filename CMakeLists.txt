@@ -6,41 +6,58 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Inicializar o SDK do Pico
-include(pico_sdk_import.cmake)
+# Initialise pico_sdk from installed location
+# (note this can come from environment, CMake cache etc)
 
-# Definir o tipo de placa como pico_w (Raspberry Pi Pico W)
+# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+if(WIN32)
+    set(USERHOME $ENV{USERPROFILE})
+else()
+    set(USERHOME $ENV{HOME})
+endif()
+set(sdkVersion 2.1.0)
+set(toolchainVersion 13_3_Rel1)
+set(picotoolVersion 2.1.0)
+set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+if (EXISTS ${picoVscode})
+    include(${picoVscode})
+endif()
+# ====================================================================================
 set(PICO_BOARD pico_w CACHE STRING "Board type")
 
-# Nome do projeto
-project(Tarefa2 C CXX ASM)
+# Pull in Raspberry Pi Pico SDK (must be before project)
+include(pico_sdk_import.cmake)
 
-# Inicializar o SDK do Pico
+project(Atividade.2 C CXX ASM)
+
+# Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# Adicionar o arquivo fonte ao executável
-add_executable(Tarefa2 Tarefa2.c)
+# Add executable. Default name is the project name, version 0.1
 
-# Nome e versão do programa
-pico_set_program_name(Tarefa2 "Tarefa2")
-pico_set_program_version(Tarefa2 "0.1")
+add_executable(Atividade.2 Atividade.2.c )
 
-# Configurar saída via UART ou USB
-# Habilitar apenas uma opção entre UART (1) ou USB (1), ou desabilitar ambas (0).
-pico_enable_stdio_uart(Tarefa2 1) # Ativar saída UART
-pico_enable_stdio_usb(Tarefa2 0)  # Desativar saída USB
+pico_set_program_name(Atividade.2 "Atividade.2")
+pico_set_program_version(Atividade.2 "0.1")
 
-# Adicionar bibliotecas padrão necessárias
-target_link_libraries(Tarefa2
-    pico_stdlib            # Biblioteca padrão do Pico SDK
-    hardware_pwm           # Controle de PWM
-    hardware_timer         # Timer para tarefas
+# Modify the below lines to enable/disable output over UART/USB
+pico_enable_stdio_uart(Atividade.2 0)
+pico_enable_stdio_usb(Atividade.2 1)
+
+# Add the standard library to the build
+target_link_libraries(Atividade.2
+        pico_stdlib
+        hardware_pwm)
+
+# Add the standard include files to the build
+target_include_directories(Atividade.2 PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}
 )
 
-# Incluir o diretório atual para cabeçalhos
-target_include_directories(Tarefa2 PRIVATE
-    ${CMAKE_CURRENT_LIST_DIR}
-)
+# Add any user requested libraries
+target_link_libraries(Atividade.2 
+        
+        )
 
-# Gerar formatos adicionais de saída, como UF2
-pico_add_extra_outputs(Tarefa2)
+pico_add_extra_outputs(Atividade.2)
+
